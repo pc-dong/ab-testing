@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Experiments #orange {
+    Flux<Experiment> findAll()
+    Mono<Experiment> getById(ExperimentId)
+}
+
+class Experiment #pink {
+    Mono<Assignment> assign(CustomerId)
+}
+
+Experiments "1" -right- "0..N" Experiment
+interface MemberCriteriaConditionRef #orange
+class MemberCriteriaCondition #Pink
+
+Experiment  -up-  MemberCriteriaConditionRef
+MemberCriteriaConditionRef "1" -left- "1" MemberCriteriaCondition
+
+interface Buckets #orange {
+    Flux<Bucket> findALl()
+    Mono<Bucket> assignByCustomerId(CustomerId))
+}
+class Bucket #pink
+
+Experiment  -right-  Buckets
+Buckets "1" -down- "1..N" Bucket
+
+interface MemberCriteriaResults #orange {
+    Mono<MemberCriteriaResult> findByCustomerId(CustomerId)
+}
+class MemberCriteriaResult #pink
+
+Experiment  -down-  MemberCriteriaResults
+MemberCriteriaResults "1" -left- "0..N" MemberCriteriaResult
+
+interface CustomerSegments #orange {
+    Flux<Segment> findByCustomerId(CustomerId)
+}
+class Segment #pink
+
+MemberCriteriaResults  .down.  CustomerSegments
+CustomerSegments "1" -down- "0..N" Segment
+
+
+interface ExperimentAssignments #orange {
+    Mono<Assignment> findByCustomerId(CustomerId)
+}
+class Assignment #pink
+
+Experiment  -right-  ExperimentAssignments
+ExperimentAssignments "1" -down- "0..N" Assignment
+Assignment "1" .. "0..1" Bucket
+
+
+@enduml

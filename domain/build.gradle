@@ -1,0 +1,9 @@
+dependencies {
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1'
+    testImplementation 'io.projectreactor:reactor-test:3.4.21'
+
+}
+
+test {
+    useJUnitPlatform()
+}

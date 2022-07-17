@@ -1,0 +1,39 @@
+buildscript {
+    ext {
+        springBootVersion = '2.7.1'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    group 'cn.dpc.abtesting'
+    version '1.0-SNAPSHOT'
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'java'
+    // 指定JDK版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    // 指定编码格式
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+    repositories {
+        mavenCentral()
+    }
+    ext {//依赖版本
+        springBootVersion = '2.7.1'
+    }
+    dependencies {
+        implementation 'io.projectreactor:reactor-core:3.4.21'
+        implementation  'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    }
+}

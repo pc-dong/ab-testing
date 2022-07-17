@@ -1,0 +1,31 @@
+@startuml "context"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+AddRelTag("backup",  $lineStyle = DashedLine())
+
+Person(user, "Customer")
+Person(administrator, "Administrator")
+System(ab, "AB实验服务")
+
+System_Ext(business, "业务系统")
+System_Ext(admin, "Web配置端")
+System_Ext(app, "App")
+System_Ext(bff, "APP BFF")
+System_Ext(webBff, "Web BFF")
+System_Ext(dmp, "DMP")
+System_Ext(track, "埋点系统")
+
+Rel_D(user, app, " ")
+Rel(administrator, admin, " ")
+Rel_L(app, bff, "           ")
+Rel_D(bff, business, " ")
+Rel(app, track, "上报埋点", $tags="backup")
+Rel(track, dmp, "统计实验结果", $tags="backup")
+
+Rel(business, ab, "获取分组结果")
+Rel_R(ab, dmp, "获取人群标签")
+Rel_D(admin, webBff, "配置")
+Rel_R(webBff, ab, "配置")
+
+'SHOW_LEGEND()
+@enduml
