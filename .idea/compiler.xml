@@ -9,6 +9,7 @@
         </processorPath>
         <module name="ab-testing.api.main" />
         <module name="ab-testing.persistence.main" />
+        <module name="ab-testing.main.main" />
         <module name="ab-testing.domain.main" />
       </profile>
     </annotationProcessing>
