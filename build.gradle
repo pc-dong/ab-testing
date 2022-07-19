@@ -16,8 +16,11 @@ allprojects {
     apply plugin: 'idea'
 }
 
+
+
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
     // 指定JDK版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -29,6 +32,14 @@ subprojects {
     ext {//依赖版本
         springBootVersion = '2.7.1'
     }
+    dependencyManagement {
+        dependencies {
+            dependency "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+            dependency "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+            dependency "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+        }
+    }
+
     dependencies {
         implementation 'io.projectreactor:reactor-core:3.4.21'
         implementation  'org.projectlombok:lombok:1.18.24'

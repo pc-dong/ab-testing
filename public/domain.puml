@@ -48,9 +48,12 @@ interface ExperimentAssignments #orange {
 }
 class Assignment #pink
 
+object Customer #Green
+
 Experiment  -right-  ExperimentAssignments
 ExperimentAssignments "1" -down- "0..N" Assignment
-Assignment "1" .. "0..1" Bucket
+Assignment "1" -D- "1" Customer
+Assignment "1" .R. "0..1" Bucket
 
 
 @enduml

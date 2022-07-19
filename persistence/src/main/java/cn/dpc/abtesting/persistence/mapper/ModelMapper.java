@@ -16,9 +16,9 @@ public interface ModelMapper {
 
     Mono<Experiment> addExperiment(Experiment experiment);
 
-    Mono<Experiment> updateExperiment(Experiment experiment);
+    Mono<Experiment> updateExperiment(String id, Experiment experiment);
 
-    Mono<Object> deleteExperiment(String id);
+    Mono<Experiment> deleteExperiment(String id);
 
     Mono<Assignment> addAssignment(Assignment assignment);
 }

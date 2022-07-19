@@ -1,9 +1,12 @@
 package cn.dpc.abtesting.persistence.associations;
 
-import cn.dpc.abtesting.domain.*;
+import cn.dpc.abtesting.domain.CustomerCriteriaResult;
 import cn.dpc.abtesting.domain.CustomerSegments;
+import cn.dpc.abtesting.domain.Segment;
+import cn.dpc.abtesting.domain.CustomerCriteriaConditionRef;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
+
 
 @RequiredArgsConstructor
 public class CustomerCriteriaResults implements cn.dpc.abtesting.domain.CustomerCriteriaResults {

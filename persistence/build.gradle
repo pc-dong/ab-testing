@@ -4,8 +4,8 @@
 //}
 
 dependencies {
-    implementation project(':domain')
-    implementation 'org.springframework.boot:spring-boot-starter:2.7.1'
+    implementation project(":domain")
+    implementation "org.springframework.boot:spring-boot-starter"
 }
 
 test {

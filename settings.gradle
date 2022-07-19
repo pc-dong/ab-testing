@@ -1,2 +1,4 @@
 rootProject.name = 'ab-testing'
 include 'domain', 'persistence'
+include 'api'
+

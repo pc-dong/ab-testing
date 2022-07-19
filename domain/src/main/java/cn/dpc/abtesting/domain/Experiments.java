@@ -10,7 +10,7 @@ public interface Experiments {
 
     Mono<Experiment> add(Experiment experiment);
 
-    Mono<Experiment> update(Experiment experiment);
+    Mono<Experiment> update(Experiment.ExperimentId experimentId, Experiment experiment);
 
-    Mono<Object> delete(Experiment.ExperimentId experimentId);
+    Mono<Void> delete(Experiment.ExperimentId experimentId);
 }

@@ -1,13 +1,24 @@
 package cn.dpc.abtesting.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Data
+@Getter
+@Setter
 public class Experiment {
+
+    public Experiment() {
+
+    }
+    public Experiment(ExperimentId experimentId, Buckets buckets) {
+        this.experimentId = experimentId;
+        this.buckets = buckets;
+    }
+
+    public Experiment experiment;
 
     private ExperimentId experimentId;
 

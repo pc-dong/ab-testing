@@ -5,13 +5,12 @@ import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 @RequiredArgsConstructor
 public class Buckets implements Experiment.Buckets{
-    private final List<Experiment.Bucket> buckets = new ArrayList<>();
+    private final List<Experiment.Bucket> buckets;
 
     @Override
     public Flux<Experiment.Bucket> findAll() {

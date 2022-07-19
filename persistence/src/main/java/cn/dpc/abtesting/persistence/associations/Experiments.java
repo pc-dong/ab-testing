@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+
 @Component
 @RequiredArgsConstructor
 public class Experiments implements cn.dpc.abtesting.domain.Experiments {
@@ -17,8 +19,9 @@ public class Experiments implements cn.dpc.abtesting.domain.Experiments {
     public Mono<Experiment> findById(Experiment.ExperimentId id) {
         return modelMapper.findExperimentById(id.getId())
                 .map(experiment -> {
-                    experiment.setBuckets(new Buckets());
+                    experiment.setBuckets(new Buckets(new ArrayList<>()));
                     experiment.setAssignments(new ExperimentAssignments(modelMapper, experiment.getExperimentId()));
+                    experiment.setCustomerCriteriaConditionRef(new CustomerCriteriaConditionRef(null));
                     experiment.setCustomerCriteriaResults(new CustomerCriteriaResults(customerSegments,
                             experiment.getCustomerCriteriaConditionRef()));
                     return experiment;
@@ -36,12 +39,13 @@ public class Experiments implements cn.dpc.abtesting.domain.Experiments {
     }
 
     @Override
-    public Mono<Experiment> update(Experiment experiment) {
-        return modelMapper.updateExperiment(experiment);
+    public Mono<Experiment> update(Experiment.ExperimentId experimentId, Experiment experiment) {
+        return modelMapper.updateExperiment(experimentId.getId(), experiment);
     }
 
     @Override
-    public Mono<Object> delete(Experiment.ExperimentId experimentId) {
-        return modelMapper.deleteExperiment(experimentId.getId());
+    public Mono<Void> delete(Experiment.ExperimentId experimentId) {
+        return modelMapper.deleteExperiment(experimentId.getId())
+                .then();
     }
 }

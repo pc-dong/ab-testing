@@ -37,14 +37,14 @@ public class ModelMapperImpl implements ModelMapper {
     }
 
     @Override
-    public Mono<Experiment> updateExperiment(Experiment experiment) {
-        experiments.put(experiment.getExperimentId().getId(), experiment);
+    public Mono<Experiment> updateExperiment(String id, Experiment experiment) {
+        experiments.put(id, experiment);
         return Mono.just(experiment);
     }
 
     @Override
-    public Mono<Object> deleteExperiment(String experimentId) {
-        Object experiment = experiments.get(experimentId);
+    public Mono<Experiment> deleteExperiment(String experimentId) {
+        Experiment experiment = experiments.get(experimentId);
         if (null == experiment) {
             return Mono.error(new ExperimentNotExistException());
         }
