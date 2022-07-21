@@ -3,6 +3,7 @@ package cn.dpc.abtesting.persistence.mapper;
 import cn.dpc.abtesting.domain.Assignment;
 import cn.dpc.abtesting.domain.Experiment;
 import cn.dpc.abtesting.domain.ExperimentNotExistException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,17 +14,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class ModelMapperImpl implements ModelMapper {
-    private static final ConcurrentHashMap<String, Experiment> experiments = new ConcurrentHashMap();
+    private static final ConcurrentHashMap<String, ExperimentDBEntity> experiments = new ConcurrentHashMap();
     private static final ConcurrentHashMap<String, ConcurrentHashMap<String, Assignment>> assignments = new ConcurrentHashMap();
 
     @Override
     public Mono<Experiment> findExperimentById(String experimentId) {
-        return Mono.just(experiments.get(experimentId));
+        return Mono.justOrEmpty(experiments.get(experimentId))
+                .map(ExperimentDBEntity::toExperiment);
     }
 
     @Override
     public Flux<Experiment> findAllExperiments() {
-        return Flux.fromIterable(experiments.values());
+        return Flux.fromIterable(experiments.values())
+                .map(ExperimentDBEntity::toExperiment);
     }
 
     @Override
@@ -31,27 +34,37 @@ public class ModelMapperImpl implements ModelMapper {
         if (null == experiment.getExperimentId()) {
             experiment.setExperimentId(new Experiment.ExperimentId(UUID.randomUUID().toString()));
         }
-
-        experiments.put(experiment.getExperimentId().getId(), experiment);
-        return Mono.just(experiment);
+        return ExperimentDBEntity.fromExperiment(experiment)
+                .map(experimentDBEntity -> {
+                    experiments.put(experiment.getExperimentId().getId(), experimentDBEntity);
+                    return experimentDBEntity.toExperiment();
+                });
     }
 
     @Override
-    public Mono<Experiment> updateExperiment(String id, Experiment experiment) {
-        experiments.put(id, experiment);
-        return Mono.just(experiment);
+    public Mono<Experiment> updateExperiment(String experimentId, Experiment changeExperiment) {
+        ExperimentDBEntity dbEntity = experiments.get(experimentId);
+        if (null == dbEntity) {
+            return Mono.error(new ExperimentNotExistException());
+        }
+
+        return ExperimentDBEntity.fromExperiment(changeExperiment)
+                .map(changeDBEntity -> {
+                    BeanUtils.copyProperties(changeDBEntity, dbEntity);
+                    experiments.put(experimentId, dbEntity);
+                    return dbEntity.toExperiment();
+                });
     }
 
     @Override
     public Mono<Experiment> deleteExperiment(String experimentId) {
-        Experiment experiment = experiments.get(experimentId);
-        if (null == experiment) {
+        ExperimentDBEntity dbEntity = experiments.get(experimentId);
+        if (null == dbEntity) {
             return Mono.error(new ExperimentNotExistException());
         }
 
         experiments.remove(experimentId);
-
-        return Mono.just(experiment);
+        return Mono.just(dbEntity.toExperiment());
     }
 
     @Override

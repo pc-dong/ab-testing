@@ -6,6 +6,7 @@
 dependencies {
     implementation project(":domain")
     implementation "org.springframework.boot:spring-boot-starter"
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.9.3'
 }
 
 test {

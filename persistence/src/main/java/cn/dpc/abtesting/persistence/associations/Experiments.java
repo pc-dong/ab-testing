@@ -3,13 +3,15 @@ package cn.dpc.abtesting.persistence.associations;
 import cn.dpc.abtesting.domain.Experiment;
 import cn.dpc.abtesting.persistence.mapper.ModelMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-
 @Component
+@Primary
+@Qualifier("experiments")
 @RequiredArgsConstructor
 public class Experiments implements cn.dpc.abtesting.domain.Experiments {
     private final ModelMapper modelMapper;
@@ -19,9 +21,7 @@ public class Experiments implements cn.dpc.abtesting.domain.Experiments {
     public Mono<Experiment> findById(Experiment.ExperimentId id) {
         return modelMapper.findExperimentById(id.getId())
                 .map(experiment -> {
-                    experiment.setBuckets(new Buckets(new ArrayList<>()));
                     experiment.setAssignments(new ExperimentAssignments(modelMapper, experiment.getExperimentId()));
-                    experiment.setCustomerCriteriaConditionRef(new CustomerCriteriaConditionRef(null));
                     experiment.setCustomerCriteriaResults(new CustomerCriteriaResults(customerSegments,
                             experiment.getCustomerCriteriaConditionRef()));
                     return experiment;
