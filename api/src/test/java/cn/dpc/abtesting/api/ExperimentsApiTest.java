@@ -43,7 +43,7 @@ class ExperimentsApiTest {
 
         Mockito.when(experiments.add(any(Experiment.class))).thenAnswer(invocation -> {
             Experiment experiment = invocation.getArgument(0, Experiment.class);
-            experiment.setExperimentId(new Experiment.ExperimentId(UUID.randomUUID().toString()));
+            experiment.setId(new Experiment.ExperimentId(UUID.randomUUID().toString()));
             return Mono.just(experiment);
         });
 

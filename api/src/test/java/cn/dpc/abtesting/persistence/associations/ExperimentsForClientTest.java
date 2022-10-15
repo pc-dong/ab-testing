@@ -1,7 +1,6 @@
 package cn.dpc.abtesting.persistence.associations;
 
 import cn.dpc.abtesting.domain.Experiment;
-import cn.dpc.abtesting.persistence.mapper.ModelMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

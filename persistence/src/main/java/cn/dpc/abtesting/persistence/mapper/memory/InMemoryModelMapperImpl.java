@@ -1,8 +1,10 @@
-package cn.dpc.abtesting.persistence.mapper;
+package cn.dpc.abtesting.persistence.mapper.memory;
 
 import cn.dpc.abtesting.domain.Assignment;
 import cn.dpc.abtesting.domain.Experiment;
 import cn.dpc.abtesting.domain.ExperimentNotExistException;
+import cn.dpc.abtesting.persistence.associations.ExperimentAssignments;
+import cn.dpc.abtesting.persistence.associations.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -13,30 +15,38 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class ModelMapperImpl implements ModelMapper {
+public class InMemoryModelMapperImpl implements ModelMapper {
     private static final ConcurrentHashMap<String, ExperimentDBEntity> experiments = new ConcurrentHashMap();
     private static final ConcurrentHashMap<String, ConcurrentHashMap<String, Assignment>> assignments = new ConcurrentHashMap();
 
     @Override
     public Mono<Experiment> findExperimentById(String experimentId) {
         return Mono.justOrEmpty(experiments.get(experimentId))
-                .map(ExperimentDBEntity::toExperiment);
+                .map(ExperimentDBEntity::toExperiment)
+                .map(experiment -> {
+                    experiment.setAssignments(new ExperimentAssignments(this, new Experiment.ExperimentId(experimentId)));
+                    return experiment;
+                });
     }
 
     @Override
     public Flux<Experiment> findAllExperiments() {
         return Flux.fromIterable(experiments.values())
-                .map(ExperimentDBEntity::toExperiment);
+                .map(ExperimentDBEntity::toExperiment)
+                .map(experiment -> {
+                    experiment.setAssignments(new ExperimentAssignments(this, experiment.getId()));
+                    return experiment;
+                });
     }
 
     @Override
     public Mono<Experiment> addExperiment(Experiment experiment) {
-        if (null == experiment.getExperimentId()) {
-            experiment.setExperimentId(new Experiment.ExperimentId(UUID.randomUUID().toString()));
+        if (null == experiment.getId()) {
+            experiment.setId(new Experiment.ExperimentId(UUID.randomUUID().toString()));
         }
         return ExperimentDBEntity.fromExperiment(experiment)
                 .map(experimentDBEntity -> {
-                    experiments.put(experiment.getExperimentId().getId(), experimentDBEntity);
+                    experiments.put(experiment.getId().getId(), experimentDBEntity);
                     return experimentDBEntity.toExperiment();
                 });
     }

@@ -1,4 +1,4 @@
-package cn.dpc.abtesting.persistence.mapper;
+package cn.dpc.abtesting.persistence.mapper.memory;
 
 import cn.dpc.abtesting.domain.CustomerCriteriaCondition;
 import cn.dpc.abtesting.domain.Experiment;
@@ -35,7 +35,7 @@ public class ExperimentDBEntity {
                                 .collectList()
                                 .map(bucketList -> {
                                     ExperimentDBEntity experimentDB = new ExperimentDBEntity();
-                                    experimentDB.setId(exp.getExperimentId().getId());
+                                    experimentDB.setId(exp.getId().getId());
                                     experimentDB.setDescription(exp.getDescription());
                                     experimentDB.setBuckets(bucketList);
                                     experimentDB.setCustomerCriteriaCondition(exp.getCustomerCriteriaConditionRef().getCondition().orElse(null));

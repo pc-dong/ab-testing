@@ -13,14 +13,12 @@ public class Experiment {
     public Experiment() {
 
     }
-    public Experiment(ExperimentId experimentId, Buckets buckets) {
-        this.experimentId = experimentId;
+    public Experiment(ExperimentId id, Buckets buckets) {
+        this.id = id;
         this.buckets = buckets;
     }
 
-    public Experiment experiment;
-
-    private ExperimentId experimentId;
+    private ExperimentId id;
 
     private CustomerCriteriaConditionRef customerCriteriaConditionRef;
     private Buckets buckets;
@@ -48,10 +46,10 @@ public class Experiment {
                 .switchIfEmpty(this.customerCriteriaResults.checkAssess(customerId)
                         .flatMap(result -> result.isAccess()
                                 ? this.buckets.assignByCustomerId(customerId)
-                                .map(bucket -> new Assignment(new Assignment.AssignmentId(this.experimentId.getId(), customerId),
+                                .map(bucket -> new Assignment(new Assignment.AssignmentId(this.id.getId(), customerId),
                                         bucket.getKey(),
                                         bucket.getConfig()))
-                                : Mono.just(new Assignment(new Assignment.AssignmentId(this.experimentId.getId(), customerId),
+                                : Mono.just(new Assignment(new Assignment.AssignmentId(this.id.getId(), customerId),
                                 null,
                                 null))
                         ).flatMap(assignments::add)

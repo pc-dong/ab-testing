@@ -1,4 +1,4 @@
-package cn.dpc.abtesting.persistence.mapper;
+package cn.dpc.abtesting.persistence.associations;
 
 import cn.dpc.abtesting.domain.Assignment;
 import cn.dpc.abtesting.domain.Experiment;

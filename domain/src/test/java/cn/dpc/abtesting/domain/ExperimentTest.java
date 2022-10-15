@@ -28,7 +28,7 @@ class ExperimentTest {
     @BeforeEach
     public void init() {
         experiment = new Experiment();
-        experiment.setExperimentId(new Experiment.ExperimentId("111"));
+        experiment.setId(new Experiment.ExperimentId("111"));
         experiment.setAssignments(assignments);
         experiment.setCustomerCriteriaResults(customerCriteriaResults);
         experiment.setBuckets(buckets);

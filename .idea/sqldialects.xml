@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/persistence/src/main/resources" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/persistence/src/main/resources/db/migration/V20220902150226__ddl.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/persistence/src/test/resources/schema.sql" dialect="H2" />
+  </component>
+</project>

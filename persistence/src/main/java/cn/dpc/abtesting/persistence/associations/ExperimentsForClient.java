@@ -1,7 +1,6 @@
 package cn.dpc.abtesting.persistence.associations;
 
 import cn.dpc.abtesting.domain.Experiment;
-import cn.dpc.abtesting.persistence.mapper.ModelMapper;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,13 +16,9 @@ public class ExperimentsForClient extends Experiments {
     private static final Cache<Object, Object> cache = Caffeine.newBuilder()
             .expireAfterWrite(5, TimeUnit.MINUTES)
             .maximumSize(100).build();
-    private final ModelMapper modelMapper;
-    private final CustomerSegments customerSegments;
 
     public ExperimentsForClient(ModelMapper modelMapper, CustomerSegments customerSegments) {
         super(modelMapper, customerSegments);
-        this.modelMapper = modelMapper;
-        this.customerSegments = customerSegments;
     }
 
     @Override

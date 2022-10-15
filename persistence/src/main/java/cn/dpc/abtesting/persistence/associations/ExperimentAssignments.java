@@ -2,7 +2,6 @@ package cn.dpc.abtesting.persistence.associations;
 
 import cn.dpc.abtesting.domain.Assignment;
 import cn.dpc.abtesting.domain.Experiment;
-import cn.dpc.abtesting.persistence.mapper.ModelMapper;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

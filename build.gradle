@@ -37,6 +37,7 @@ subprojects {
             dependency "org.springframework.boot:spring-boot-starter:${springBootVersion}"
             dependency "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
             dependency "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+            dependency "org.springframework.boot:spring-boot-starter-data-r2dbc:${springBootVersion}"
         }
     }
 
@@ -45,6 +46,8 @@ subprojects {
         implementation  'org.projectlombok:lombok:1.18.24'
         annotationProcessor 'org.projectlombok:lombok:1.18.24'
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+        testImplementation 'io.projectreactor:reactor-test:3.4.21'
     }
 }

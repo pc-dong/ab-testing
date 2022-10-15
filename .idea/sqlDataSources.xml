@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="0ed16cfb-3d5a-4854-852c-16c99fb26915" name="mydb Mapping">
+      <data-sources db="ce1d0e92-977e-4fa6-bf29-db4639477650" ddl="1d5ebc93-dd0a-4a28-b758-f6eb25c0ceb0" />
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="1d5ebc93-dd0a-4a28-b758-f6eb25c0ceb0" />
+          <option name="name" value="mydb (DDL)" />
+          <option name="languageId" value="H2" />
+          <option name="urls">
+            <array>
+              <option value="file://$PROJECT_DIR$/persistence/src/main/resources/db/migration/V20220902150226__ddl.sql" />
+            </array>
+          </option>
+        </State>
+      </list>
+    </option>
+  </component>
+</project>

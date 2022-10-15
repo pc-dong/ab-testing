@@ -35,7 +35,7 @@ public class ExperimentDto {
                                 .collectList()
                                 .map(bucketList -> {
                                     ExperimentDto experimentDto = new ExperimentDto();
-                                    experimentDto.setId(exp.getExperimentId().getId());
+                                    experimentDto.setId(exp.getId().getId());
                                     experimentDto.setDescription(exp.getDescription());
                                     experimentDto.setBuckets(bucketList);
                                     experimentDto.setCustomerCriteriaCondition(exp.getCustomerCriteriaConditionRef().getCondition().orElse(null));

@@ -1,7 +1,6 @@
 package cn.dpc.abtesting.persistence.associations;
 
 import cn.dpc.abtesting.domain.Experiment;
-import cn.dpc.abtesting.persistence.mapper.ModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
@@ -21,7 +20,7 @@ public class Experiments implements cn.dpc.abtesting.domain.Experiments {
     public Mono<Experiment> findById(Experiment.ExperimentId id) {
         return modelMapper.findExperimentById(id.getId())
                 .map(experiment -> {
-                    experiment.setAssignments(new ExperimentAssignments(modelMapper, experiment.getExperimentId()));
+                    experiment.setAssignments(new ExperimentAssignments(modelMapper, experiment.getId()));
                     experiment.setCustomerCriteriaResults(new CustomerCriteriaResults(customerSegments,
                             experiment.getCustomerCriteriaConditionRef()));
                     return experiment;
