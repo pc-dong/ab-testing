@@ -1,5 +1,6 @@
-package cn.dpc.abtesting.api;
+package cn.dpc.abtesting.api.rest;
 
+import cn.dpc.abtesting.api.TestConfiguration;
 import cn.dpc.abtesting.api.dto.ExperimentDto;
 import cn.dpc.abtesting.domain.CustomerCriteriaCondition;
 import cn.dpc.abtesting.domain.Experiment;

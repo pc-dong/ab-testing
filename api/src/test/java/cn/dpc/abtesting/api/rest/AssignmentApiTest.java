@@ -1,5 +1,6 @@
-package cn.dpc.abtesting.api;
+package cn.dpc.abtesting.api.rest;
 
+import cn.dpc.abtesting.api.TestConfiguration;
 import cn.dpc.abtesting.domain.Assignment;
 import cn.dpc.abtesting.domain.Experiment;
 import cn.dpc.abtesting.domain.Experiments;
@@ -24,7 +25,7 @@ class AssignmentApiTest {
     @Autowired
     WebTestClient webTestClient;
 
-    @MockBean
+    @MockBean(name = "experimentsForClient")
     public Experiments experiments;
 
     @Mock

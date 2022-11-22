@@ -1,4 +1,4 @@
-package cn.dpc.abtesting.api;
+package cn.dpc.abtesting.api.rest;
 
 
 import cn.dpc.abtesting.domain.Assignment;
