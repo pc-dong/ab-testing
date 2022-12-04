@@ -2,12 +2,15 @@ package cn.dpc.abtesting.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Assignment {
     private AssignmentId id;
     private Optional<String> bucketKey;
@@ -22,6 +25,7 @@ public class Assignment {
 
     @AllArgsConstructor
     @Getter
+    @NoArgsConstructor
     public static class AssignmentId{
         private String experimentId;
         private String customerId;
